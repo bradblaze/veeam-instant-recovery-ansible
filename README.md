@@ -2,7 +2,7 @@
 Veeam Instant Recovery on PhoenixNAP Bare Metal Cloud (BMC)
 </h1>
 
-<p align="center">
+<p>
 This repo has been forked from https://github.com/phoenixnap/ansible-collection-pnap and the docs have been updated to address how to recovery instantly on PhoenixNAP BMC</p>
 
 ## Requirements
@@ -125,7 +125,7 @@ Pay attention to the *state* item. This is where you tell Ansible which action y
 For more examples, check out this helpful tutorial: [Bare Metal Cloud Playbook Examples](https://phoenixnap.com/kb/how-to-install-phoenixnap-bmc-ansible-module#htoc-bmc-playbook-examples)
 
 ## References
-<p align="center">
+<p>
   <a href="https://phoenixnap.com/bare-metal-cloud">Bare Metal Cloud</a> •
   <a href="https://galaxy.ansible.com/phoenixnap/bmc">Ansible Galaxy</a> •
 </p>
