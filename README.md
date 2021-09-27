@@ -1,22 +1,9 @@
 <h1 align="center">
-  <br>
-  <a href="https://phoenixnap.com/bare-metal-cloud"><img src="https://user-images.githubusercontent.com/78744488/109779287-16da8600-7c06-11eb-81a1-97bf44983d33.png" alt="phoenixnap Bare Metal Cloud" width="300"></a>
-  <br>
-  Bare Metal Cloud Ansible Collection
-  <br>
+Veeam Instant Recovery on PhoenixNAP Bare Metal Cloud (BMC)
 </h1>
 
 <p align="center">
-Ansible collection of modules for interacting with the <a href="https://developers.phoenixnap.com/docs/bmc/1/overview">Bare Metal Cloud API</a>. This collection contains the <i><b>server</b></i> module which allows you to automate <a href="https://phoenixnap.com/bare-metal-cloud">Bare Metal Cloud</a> server provisioning and management.
-</p>
-
-<p align="center">
-  <a href="https://phoenixnap.com/bare-metal-cloud">Bare Metal Cloud</a> •
-  <a href="https://galaxy.ansible.com/phoenixnap/bmc">Ansible Galaxy</a> •
-  <a href="https://developers.phoenixnap.com/">Developers Portal</a> •
-  <a href="http://phoenixnap.com/kb">Knowledge Base</a> •
-  <a href="https://developers.phoenixnap.com/support">Support</a>
-</p>
+This repo has been forked from https://github.com/phoenixnap/ansible-collection-pnap and the docs have been updated to address how to recovery instantly on PhoenixNAP BMC</p>
 
 ## Requirements
 
@@ -42,6 +29,7 @@ Follow these helpful tutorials to learn how to install Ansible on Ubuntu and Win
 
 - [How to Install and Configure Ansible on Ubuntu 20.04](https://phoenixnap.com/kb/install-ansible-ubuntu-20-04)
 - [How to Install and Configure Ansible on Windows](https://phoenixnap.com/kb/install-ansible-on-windows)
+- [How to Install and Configure Ansible on Mac OSX](https://www.toptechskills.com/ansible-tutorials-courses/how-to-install-ansible-mac-os-x-tutorial/)
 
 ## Installing the Bare Metal Cloud Ansible module
 
@@ -77,56 +65,53 @@ To get the values for the clientId and clientSecret, follow these steps:
 5. In the table, click on Actions and select View Credentials from the dropdown.
 6. Copy the values from the Client ID and Client Secret fields into your `config.yaml` file.
 
-## Example Ansible Playbooks for Bare Metal Cloud
+## Ansible Playbook for Veeam Instant Recovery on PhoenixNAP
 
 Ansible Playbooks allow you to interact with your Bare Metal Cloud resources. You can create and delete servers as well as perform power actions with simple code instructions.
 
-This example shows you how to deploy a Bare Metal Cloud server and delete it with Ansible Playbooks.
+This example shows you how to deploy a Windows and ESXi Server in PhoenixNAP. On the Windows server, you can install Veeam VBR and then configure the ESXi Server as a host server in Veeam
 
-First, create a YAML file `playbook_name.yml`. The _name_ part of the filename should contain the action you want to perform. To create a server, the filename can be `playbook_create.yml`.
+Ansible playbooks are YAML files and follow the format `playbook_name.yml`. The _name_ part of the filename should contain the action you want to perform. In our case, since we are creating a couple of servers, the filename is `playbook_create.yaml`.
 
-Once you've created the file, open it and paste this code:
+Once you've created the file, open it and paste this code (this file is also checked into this repo):
+Note: Be default, the servers you provision will be locked down. Please update the <i>management_access_allowed_ips</i> and <i>rdp_allowed_ips</i> config values below to reflect your public IP.
 
 ```yaml
 
-- name: Create new servers for account
+- name: Create servers for Instant Recovery
   hosts: localhost
   gather_facts: false
   vars_files:
+
     - ~/.pnap/config.yaml
   collections:
     - phoenixnap.bmc
   tasks:
+
   - server:
       client_id: "{{clientId}}"
       client_secret: "{{clientSecret}}"
-      hostnames: [my-server-red]
+      hostnames: veeam-ir-esxi
       location: PHX
-      os: ubuntu/bionic
-      type: s1.c1.medium
+      os: esxi/esxi70u2
+      type: d1.c2.medium
       state: present
+      ssh_key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+      management_access_allowed_ips: ["192.168.1.100"]
+	  
+  - server:
+      client_id: "{{clientId}}"
+      client_secret: "{{clientSecret}}"
+      hostnames: veeam-ir-windows
+      location: PHX
+      os: windows/srv2019dc
+      type: s1.c2.medium
+      state: present
+      rdp_allowed_ips: [192.168.1.100]
       ssh_key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
 
 ```
-To delete that same server, create a file called `playbook_deprovision.yml` and paste this code:
 
-```yaml
-
-- name: reset servers
-  hosts: localhost
-  gather_facts: false
-  vars_files:
-    - ~/.pnap/config.yaml
-  collections:
-    - phoenixnap.bmc
-  tasks:
-  - server:
-      client_id: "{{clientId}}"
-      client_secret: "{{clientSecret}}"
-      hostnames: [my-server-red]
-      state: absent
-
-```
 Pay attention to the *state* item. This is where you tell Ansible which action you would like to perform. Here's a list of available options:
 
 -   **present**: creates the server
@@ -139,42 +124,8 @@ Pay attention to the *state* item. This is where you tell Ansible which action y
 
 For more examples, check out this helpful tutorial: [Bare Metal Cloud Playbook Examples](https://phoenixnap.com/kb/how-to-install-phoenixnap-bmc-ansible-module#htoc-bmc-playbook-examples)
 
-## Bare Metal Cloud community
-
-Become part of the Bare Metal Cloud community to get updates on new features, help us improve the platform, and engage with developers and other users.
-
-- Follow [@phoenixNAP on Twitter](https://twitter.com/phoenixnap)
-- Join the [official Slack channel](https://phoenixnap.slack.com)
-- Sign up for our [Developers Monthly newsletter](https://phoenixnap.com/developers-monthly-newsletter)
-
-### Resources
-
-- [Product page](https://phoenixnap.com/bare-metal-cloud)
-- [Instance pricing](https://phoenixnap.com/bare-metal-cloud/instances)
-- [YouTube tutorials](https://www.youtube.com/watch?v=8TLsqgLDMN4&list=PLWcrQnFWd54WwkHM0oPpR1BrAhxlsy1Rc&ab_channel=PhoenixNAPGlobalITServices)
-- [Developers Portal](https://developers.phoenixnap.com)
-- [Knowledge Base](https://phoenixnap.com/kb)
-- [Blog](https:/phoenixnap.com/blog)
-
-### Documentation
-
-- [Ansible Galaxy - phoenixNAP](https://galaxy.ansible.com/phoenixnap)
-- [API documentation](https://developers.phoenixnap.com/docs/bmc/1/overview)
-
-### Contact phoenixNAP
-
-Get in touch with us if you have questions or need help with Bare Metal Cloud.
-
-<p align="left">
-  <a href="https://twitter.com/phoenixNAP">Twitter</a> •
-  <a href="https://www.facebook.com/phoenixnap">Facebook</a> •
-  <a href="https://www.linkedin.com/company/phoenix-nap">LinkedIn</a> •
-  <a href="https://www.instagram.com/phoenixnap">Instagram</a> •
-  <a href="https://www.youtube.com/user/PhoenixNAPdatacenter">YouTube</a> •
-  <a href="https://developers.phoenixnap.com/support">Email</a> 
-</p>
-
+## References
 <p align="center">
-  <br>
-  <a href="https://phoenixnap.com/bare-metal-cloud"><img src="https://user-images.githubusercontent.com/81640346/115243282-0c773b80-a123-11eb-9de7-59e3934a5712.jpg" alt="phoenixnap Bare Metal Cloud"></a>
+  <a href="https://phoenixnap.com/bare-metal-cloud">Bare Metal Cloud</a> •
+  <a href="https://galaxy.ansible.com/phoenixnap/bmc">Ansible Galaxy</a> •
 </p>
