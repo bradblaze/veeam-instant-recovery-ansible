@@ -116,7 +116,7 @@ Once you've created the file, open it and paste this code (this file is also che
 ## Running the playbook
 To run the playbook use the following command
 ``` sh
-ansible-playbook playbook_create.yml -v
+ansible-playbook playbook_create.yaml -v
 ```
 The `-v` option is important as this option will print out the credentials that you need to log into the resources
 
