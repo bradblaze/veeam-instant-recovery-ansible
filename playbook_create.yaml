@@ -1,0 +1,31 @@
+- name: Create servers for Instant Recovery
+  hosts: localhost
+  gather_facts: false
+  vars_files:
+
+    - ~/.pnap/config.yaml
+  collections:
+    - phoenixnap.bmc
+  tasks:
+
+  - server:
+      client_id: "{{clientId}}"
+      client_secret: "{{clientSecret}}"
+      hostnames: veeam-ir-esxi
+      location: PHX
+      os: esxi/esxi70u2
+      type: d1.c2.medium
+      state: present
+      ssh_key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+      management_access_allowed_ips: ["192.168.1.100"]
+  
+  - server:
+      client_id: "{{clientId}}"
+      client_secret: "{{clientSecret}}"
+      hostnames: veeam-ir-windows
+      location: PHX
+      os: windows/srv2019dc
+      type: s1.c2.medium
+      state: present
+      rdp_allowed_ips: [192.168.1.100]
+      ssh_key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
