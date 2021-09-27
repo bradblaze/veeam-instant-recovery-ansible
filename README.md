@@ -74,8 +74,8 @@ This example shows you how to deploy a Windows and ESXi Server in PhoenixNAP. On
 Ansible playbooks are YAML files and follow the format `playbook_name.yml`. The _name_ part of the filename should contain the action you want to perform. In our case, since we are creating a couple of servers, the filename is `playbook_create.yaml`.
 
 Once you've created the file, open it and paste this code (this file is also checked into this repo):
-<br>
-Note: Be default, the servers you provision will be locked down. Please update the <i>management_access_allowed_ips</i> and <i>rdp_allowed_ips</i> config values below to reflect your public IP.
+<br><br>
+<b>Note:</b> Be default, the servers you provision will be locked down. Please update the <i>management_access_allowed_ips</i> and <i>rdp_allowed_ips</i> config values below to reflect your public IP.
 
 ```yaml
 
