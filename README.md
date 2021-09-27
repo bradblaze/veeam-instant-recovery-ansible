@@ -3,7 +3,7 @@ Veeam Instant Recovery on PhoenixNAP Bare Metal Cloud (BMC)
 </h1>
 
 <p>
-This repo has been forked from https://github.com/phoenixnap/ansible-collection-pnap and the docs have been updated to address how to recovery instantly on PhoenixNAP BMC</p>
+This repo has been forked from https://github.com/phoenixnap/ansible-collection-pnap and the docs have been updated to address how to recovery instantly using Veeam on PhoenixNAP BMC</p>
 
 ## Requirements
 
