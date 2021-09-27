@@ -98,7 +98,7 @@ Note: Be default, the servers you provision will be locked down. Please update t
       state: present
       ssh_key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
       management_access_allowed_ips: ["192.168.1.100"]
-	  
+  
   - server:
       client_id: "{{clientId}}"
       client_secret: "{{clientSecret}}"
