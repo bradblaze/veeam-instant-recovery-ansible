@@ -113,15 +113,13 @@ Once you've created the file, open it and paste this code (this file is also che
 
 ```
 
-Pay attention to the *state* item. This is where you tell Ansible which action you would like to perform. Here's a list of available options:
+## Running the playbook
+To run the playbook use the following command
+``` sh
+ansible-playbook playbook_create.yml -v
+```
+The `-v` option is important as this option will print out the credentials that you need to log into the resources
 
--   **present**: creates the server
--   **absent**: deletes the server
--   **power-off**: turns off the power supply to the machine
--   **power-on**: turns on the power supply to the machine
--   **rebooted**: restarts the server
--   **reset**: formats the server
--   **shutdown**: works on the operating system
 
 For more examples, check out this helpful tutorial: [Bare Metal Cloud Playbook Examples](https://phoenixnap.com/kb/how-to-install-phoenixnap-bmc-ansible-module#htoc-bmc-playbook-examples)
 
