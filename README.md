@@ -12,7 +12,11 @@ This repo has been forked from https://github.com/phoenixnap/ansible-collection-
 - Python 2 (version 2.7) or Python 3 (versions 3.5 and higher)
   - Python **_requests_** package
 
+<details><summary>
+
 ## Creating a Bare Metal Cloud account
+
+</summary>
 
 1. Go to the [Bare Metal Cloud signup page](https://support.phoenixnap.com/wap-jpost3/bmcSignup).
 2. Follow the prompts to set up your account.
@@ -20,19 +24,26 @@ This repo has been forked from https://github.com/phoenixnap/ansible-collection-
 
 :arrow_forward: **Video tutorial:** [How to Create a Bare Metal Cloud Account](https://www.youtube.com/watch?v=RLRQOisEB-k)
 <br>
-
 :arrow_forward: **Video tutorial:** [Introduction to Bare Metal Cloud](https://www.youtube.com/watch?v=8TLsqgLDMN4)
-
+<hr>
+</details>
+<details><summary>
+  
 ## Installing Ansible
 
+</summary>
 Follow these helpful tutorials to learn how to install Ansible on Ubuntu and Windows machines.
 
 - [How to Install and Configure Ansible on Ubuntu 20.04](https://phoenixnap.com/kb/install-ansible-ubuntu-20-04)
 - [How to Install and Configure Ansible on Windows](https://phoenixnap.com/kb/install-ansible-on-windows)
 - [How to Install and Configure Ansible on Mac OSX](https://www.toptechskills.com/ansible-tutorials-courses/how-to-install-ansible-mac-os-x-tutorial/)
+<hr>
+</details>
+<details><summary>
 
-## Installing the Bare Metal Cloud Ansible module
+## Installing Python and Ansible dependencies
 
+</summary>
 This Ansible collection contains the **_server_** module which requires the Python **_requests_** HTTP library to work properly. If you don't have it installed on your machine already, run this command to install it:
 
     pip install requests
@@ -44,6 +55,8 @@ Now install the Ansible collection by running:
 You can view the **_server_** module documentation with this command:
 
     ansible-doc phoenixnap.bmc.server
+<hr>
+</details>
 
 ## Authentication
 
